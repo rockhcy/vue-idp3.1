@@ -153,6 +153,9 @@ export default {
                   message: "操作成功",
                   type: 'success'
                 });
+                this.dialogFormVisible = false
+                location.reload();
+
               } else {
                 console.log('error submit!!');
                 return false;
@@ -175,7 +178,9 @@ export default {
                   message: "操作成功",
                   type: 'success'
                 });
+                this.dialogFormVisible = false
                 this.$refs.form.resetFields();
+                location.reload();
               } else {
                 console.log('error submit!!');
                 return false;

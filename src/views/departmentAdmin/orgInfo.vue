@@ -95,6 +95,9 @@ export default {
                   message: "操作成功",
                   type: 'success'
                 });
+                this.dialogFormVisible = false
+                //todo 这种方式虽然可以刷新页面，但是页面会有个很生硬的刷新闪烁过程，最好调整下
+                location.reload();
               } else {
                 console.log(res.data)
               }
@@ -109,6 +112,9 @@ export default {
                   message: "操作成功",
                   type: 'success'
                 });
+                this.dialogFormVisible = false
+                //todo 这种方式虽然可以刷新页面，但是页面会有个很生硬的刷新闪烁过程，最好调整下
+                location.reload();
               } else {
                 console.log(res.data)
               }

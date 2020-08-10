@@ -5,26 +5,25 @@
              class="popup">
     <el-form ref="form"
              :model="form"
-             :rules="rules"
              label-width="80px">
       <el-form-item label="策略类型"
-                    prop="status">
-        <el-radio-group v-model="form.status">
-          <el-radio label=1>端口监控</el-radio>
-          <el-radio label=0>进程监控</el-radio>
+                    prop="strategyType">
+        <el-radio-group v-model="form.strategyType">
+          <el-radio label=2>端口监控</el-radio>
+          <el-radio label=1>进程监控</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="策略内容"
-                    prop="loginname">
-        <el-input v-model="form.loginname"></el-input>
+                    prop="strategyContent">
+        <el-input v-model="form.strategyContent"></el-input>
       </el-form-item>
       <el-form-item label="策略描述"
-                    prop="loginname">
-        <el-input v-model="form.loginname"></el-input>
+                    prop="strategyDesc">
+        <el-input v-model="form.strategyDesc"></el-input>
       </el-form-item>
       <el-form-item label="策略状态"
-                    prop="status">
-        <el-radio-group v-model="form.status">
+                    prop="strategyStatus">
+        <el-radio-group v-model="form.strategyStatus">
           <el-radio label=1>正常</el-radio>
           <el-radio label=0>冻结</el-radio>
         </el-radio-group>
@@ -35,17 +34,17 @@
           <el-transfer filterable
                        :filter-method="filterMethod"
                        filter-placeholder="请输入单位名称"
-                       v-model="value"
-                       :data="data">
+                       v-model="form.orgCodes"
+                       :data="allOrg">
           </el-transfer>
         </template>
       </el-form-item>
     </el-form>
     <span slot="footer"
           class="dialog-footer">
-      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button @click="dialogFormVisible = false">取 消</el-button>
       <el-button type="primary"
-                 @click="dialogVisible = false">提 交</el-button>
+                 @click="addPorProBlacklist">提 交</el-button>
     </span>
   </el-dialog>
 </template>
@@ -53,20 +52,6 @@
 <script>
 export default {
   data () {
-    const generateData = _ => {
-      console.log(_)
-      const data = [];
-      const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都'];
-      const pinyin = ['shanghai', 'beijing', 'guangzhou', 'shenzhen', 'nanjing', 'xian', 'chengdu'];
-      cities.forEach((city, index) => {
-        data.push({
-          label: city,
-          key: index,
-          pinyin: pinyin[index]
-        });
-      });
-      return data;
-    };
     return {
       dialogFormVisible: false,
       strategyType: [
@@ -74,13 +59,56 @@ export default {
         { value: '进程监控', lable: '1' }
       ],
       form: {
-        type: ''
+        strategyType: '',
+        strategyContent: '',
+        strategyDesc: '',
+        strategyStatus: '',
+        orgCodes: []
       },
-      data: generateData(),
-      value: [],
+      allOrg: [],
       filterMethod (query, item) {
         return item.pinyin.indexOf(query) > -1;
       }
+    }
+  },
+  created () {
+    this.getOrgList()
+  },
+  methods: {
+    getOrgList () {
+      var pa = {}
+      pa.orgName = ''
+      pa.current = 1
+      pa.size = 999;
+      this.$http.get("/org/getOrgList", { params: pa }).then(res => {
+        console.log(res.data)
+        var data = []
+        res.data.records.forEach((item, index) => {
+          console.log(index)
+          data.push({
+            label: item.orgCode,
+            key: item.orgId,
+            pinyin: item.orgCode
+          });
+        })
+        this.allOrg = data
+      })
+    },
+    addPorProBlacklist () {
+      console.log(this.form)
+      this.$http.post("/admin/addPorProBlacklist", this.form, { headers: { 'Content-Type': 'application/json' } }).then(res => {
+        if (res.status == 200) {
+          this.$notify({
+            title: '成功',
+            message: "操作成功",
+            type: 'success'
+          });
+          location.reload();
+        } else {
+          console.log(res.data)
+        }
+      })
+
     }
   }
 }

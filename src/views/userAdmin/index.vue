@@ -19,8 +19,8 @@
                    @command="handleCommand">
         冻结/解冻
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="0">冻结用户</el-dropdown-item>
-          <el-dropdown-item command="1">解冻用户</el-dropdown-item>
+          <el-dropdown-item command="1">冻结用户</el-dropdown-item>
+          <el-dropdown-item command="0">解冻用户</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-button type="primary"

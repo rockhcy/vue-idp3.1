@@ -10,11 +10,13 @@ import Components from './components/global';
 import echarts from 'echarts'
 import china from 'echarts/map/json/china.json';
 import store from './store'
+import jsUtil from './config/jsUtil.js'
 // import 'echarts/map/js/china.js'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.use(Components);  // 引入全局 组件
+Vue.use(jsUtil);
 Vue.prototype.$http = axios;
 echarts.registerMap('china', china);
 Vue.prototype.$echarts = echarts

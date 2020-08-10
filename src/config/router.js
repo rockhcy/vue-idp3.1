@@ -9,6 +9,7 @@ import terminalAdmin from '../views/terminalAdmin/index'
 import scheduledTask from '../views/scheduledTask/index'
 import monitoring from '../views/monitoring/index'
 import adduser from '@/views/userAdmin/userInfo'
+import clientUpdate from '@/views/clientUpdate/index'
 
 Vue.use(Router)
 
@@ -62,6 +63,12 @@ export default new Router({
           path: '/monitoring/index',
           name: '/monitoring/index',
           component: monitoring,
+
+        },
+        {
+          path: '/clientUpdate/index',
+          name: '/clientUpdate/index',
+          component: clientUpdate,
 
         },
         {

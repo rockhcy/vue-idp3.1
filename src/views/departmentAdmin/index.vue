@@ -7,7 +7,7 @@
                  class="hcy-el-button">添加部署点</el-button>
       <el-button type="danger"
                  disabled>删除部署点</el-button>
-      <div class="grid-content bg-purple">
+      <div class="grid-content bg-purple grid-content2">
         <el-input placeholder="请输入单位名称"
                   v-model="search_key"
                   class="input-with-select">
@@ -196,7 +196,7 @@ export default {
 .el-dropdown {
   margin: 10px;
 }
-.grid-content {
+.grid-content2 {
   width: 300px;
 }
 </style>

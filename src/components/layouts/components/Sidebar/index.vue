@@ -106,6 +106,11 @@ export default {
             },
             {
               "treeLeaf": true,
+              'menuName': '终端任务推送',
+              'menuHref': "/clientUpdate/index"
+            },
+            {
+              "treeLeaf": true,
               'menuName': '计划任务',//文件推送、定时任务、高危监控都应该添加到这个页面
               'menuHref': "/scheduledTask/index"
             }
